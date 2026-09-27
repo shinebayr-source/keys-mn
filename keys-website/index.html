@@ -217,6 +217,7 @@
     </div>
 
     <!-- Frontend Логик (JavaScript) -->
+    <!-- Frontend Логик (JavaScript) -->
     <script>
         const modal = document.getElementById('paymentModal');
         const emailSection = document.getElementById('emailSection');
@@ -274,16 +275,25 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    const qrBase64 = data.qr_text || data.qr_image || data.qrData;
+                    // 1. Зураг ирсэн эсэхийг олон хувилбараар шалгах
+                    const qrBase64 = data.qr_text || data.qr_image || data.qrData || data.qrCode || data.qr;
                     
-                    if(qrBase64) {
+                    // 2. Линк (URL) ирсэн эсэхийг шалгах
+                    const paymentUrl = data.url || data.checkoutUrl || data.paymentUrl || data.link || (data.data && data.data.url);
+
+                    if (qrBase64) {
+                        // Зураг байвал дэлгэцэнд гаргах
                         qpayImage.src = qrBase64.startsWith('data:image') ? qrBase64 : `data:image/png;base64,${qrBase64}`;
-                        
                         emailSection.classList.add('hidden');
                         qrDisplaySection.classList.remove('hidden');
                         qrDisplaySection.classList.add('flex');
+                    } else if (paymentUrl) {
+                        // Линк байвал Byl.mn-ийн төлбөрийн хуудас руу шууд үсрүүлэх
+                        generateQrBtn.innerHTML = "Төлбөрийн хуудас руу шилжиж байна...";
+                        window.location.href = paymentUrl;
                     } else {
-                        alert("QR зураг олдсонгүй. Серверийн тохиргоог шалгана уу.");
+                        // Зураг ч, линк ч байхгүй бол яг юу ирснийг дэлгэцэнд харуулах
+                        alert("Byl.mn-ээс ирсэн дата: " + JSON.stringify(data));
                         resetBtn();
                     }
                 } else {
