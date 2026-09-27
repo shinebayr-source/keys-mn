@@ -1,249 +1,243 @@
 <!DOCTYPE html>
-<html lang="mn" class="scroll-smooth">
+<html lang="mn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEYS.mn - Premium KEYS Store</title>
+    <title>Pro Key - Дээд зэрэглэлийн дижитал түлхүүр</title>
+    <!-- Tailwind CSS (Загварын сан) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Загварын тохиргоо -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
                     colors: {
-                        brand: {
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                        }
+                        darkBg: '#090E17',
+                        cardBg: '#131A26',
+                        primary: '#2563EB',
+                        primaryHover: '#1D4ED8'
                     }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-text {
-            background: linear-gradient(to right, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .glow-effect {
-            box-shadow: 0 0 40px -10px rgba(96, 165, 250, 0.4);
-        }
+        body { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-100 antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-darkBg text-white antialiased min-h-screen flex flex-col relative">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 top-0 transition-all duration-300 backdrop-blur-md bg-gray-950/80 border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 cursor-pointer">
-                    <a href="#" class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                        <svg class="w-8 h-8 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
-                        Pro<span class="text-brand-500">Key</span>
-                    </a>
+    <!-- Толгойн хэсэг -->
+    <header class="flex justify-between items-center px-8 py-6 max-w-6xl mx-auto w-full">
+        <div class="flex items-center space-x-2">
+            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+            <h1 class="text-xl font-bold">Pro <span class="text-blue-500">Key</span></h1>
+        </div>
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+            <a href="#" class="hover:text-white transition">Нүүр</a>
+            <a href="#" class="hover:text-white transition">Мэдээлэл</a>
+            <button id="navBuyBtn" class="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-full transition">
+                Худалдан авах
+            </button>
+        </nav>
+    </header>
+
+    <!-- Үндсэн агуулга (Карт) -->
+    <main class="flex-grow flex items-center justify-center px-4 py-12">
+        <div class="bg-cardBg border border-gray-800 rounded-[2rem] p-8 md:p-12 max-w-2xl w-full shadow-2xl text-center">
+            
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-2 text-gray-100">Дээд зэрэглэлийн дижитал түлхүүр</h2>
+            <p class="text-gray-400 mb-8 text-sm md:text-base">Бүх үйлдэл хязгааргүй ажиллах албан ёсны эрх</p>
+            
+            <div class="text-5xl md:text-6xl font-black mb-8 tracking-tight">
+                ₮49,900
+            </div>
+            
+            <div class="flex flex-col items-center space-y-4 mb-10 text-gray-300 text-sm md:text-base">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Бүх насаараа ашиглах эрх
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#hero" class="hover:text-brand-500 transition-colors px-3 py-2 rounded-md text-sm font-medium">Нүүр</a>
-                        <a href="#features" class="hover:text-brand-500 transition-colors px-3 py-2 rounded-md text-sm font-medium">Мэдээлэл</a>
-                        <a href="#purchase" class="bg-brand-600 hover:bg-brand-500 text-white px-5 py-2 rounded-full text-sm font-medium transition-all shadow-lg shadow-brand-500/30">Худалдан авах</a>
-                    </div>
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    1 төхөөрөмжид зориулагдсан
+                </div>
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Шинэчлэлтүүд багтсан
                 </div>
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="hero" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-brand-600/20 blur-[120px] rounded-full pointer-events-none"></div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
-                Таны дижитал амьдралын <br class="hidden md:block" />
-                <span class="gradient-text">Шинэ Түлхүүр</span>
-            </h1>
-            <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto mb-10">
-                Хамгийн найдвартай, хурдан, аюулгүй програм хангамжийн шийдэл. 
-                Нэг удаагийн худалдан авалтаар бүх насаараа ашиглах эрхтэй.
+            
+            <button id="mainBuyBtn" class="bg-primary hover:bg-primaryHover w-full md:w-2/3 mx-auto py-4 rounded-full font-bold text-lg transition-transform transform hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                Худалдаж авах
+            </button>
+            
+            <p class="mt-6 text-xs text-gray-500 flex items-center justify-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Төлбөрийн мэдээлэл нууцлагдсан
             </p>
-            
-            <div class="flex justify-center mb-16">
-                <a href="#purchase" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-brand-600 rounded-full hover:bg-brand-500 transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] transform hover:-translate-y-1">
-                    Шууд худалдан авах
-                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
-            </div>
-
-            <!-- Product Image Placeholder -->
-            <div class="relative mx-auto w-full max-w-4xl rounded-2xl glow-effect overflow-hidden border border-gray-800 bg-gray-900 p-2">
-                <img src="https://placehold.co/1200x675/111827/3b82f6?text=Product+Image+Here" alt="Product Image" class="w-full rounded-xl shadow-2xl object-cover aspect-video">
-            </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Features / Information Section -->
-    <section id="features" class="py-20 bg-gray-900/50 border-y border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Бүтээгдэхүүний давуу тал</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Яагаад манайхыг сонгох хэрэгтэй вэ гэдгийг доорх мэдээллээс харна уу.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-                <!-- Feature 1 -->
-                <div class="p-6 rounded-2xl bg-gray-900 border border-gray-800 hover:border-gray-700 transition-colors duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center mb-6 mx-auto md:mx-0">
-                        <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-3">Шуурхай хүргэлт</h3>
-                    <p class="text-gray-400 leading-relaxed">Төлбөр төлөгдсөн даруйд таны и-мэйл хаягаар бүтээгдэхүүний түлхүүр автоматаар илгээгдэнэ.</p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="p-6 rounded-2xl bg-gray-900 border border-gray-800 hover:border-gray-700 transition-colors duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-6 mx-auto md:mx-0">
-                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-3">100% Баталгаат</h3>
-                    <p class="text-gray-400 leading-relaxed">Албан ёсны эрхтэй, найдвартай эх сурвалжаас баталгаажуулсан цэвэр код очно.</p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="p-6 rounded-2xl bg-gray-900 border border-gray-800 hover:border-gray-700 transition-colors duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center mb-6 mx-auto md:mx-0">
-                        <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-3">24/7 Тусламж</h3>
-                    <p class="text-gray-400 leading-relaxed">Суулгах явцад ямар нэгэн асуудал гарвал манай баг хэзээд туслахад бэлэн.</p>
-                </div>
-            </div>
+    <!-- Хөл хэсэг -->
+    <footer class="border-t border-gray-800 py-8 px-8 flex flex-col md:flex-row justify-between items-center max-w-6xl mx-auto w-full text-xs text-gray-500">
+        <div class="flex items-center space-x-2 mb-4 md:mb-0">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+            <span class="font-bold text-gray-400">Pro Key</span>
+            <span class="ml-2">© 2026 Бүх эрх хуулиар хамгаалагдсан.</span>
         </div>
-    </section>
-
-    <!-- Purchase Section -->
-    <section id="purchase" class="py-24 relative overflow-hidden">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-700 text-center relative overflow-hidden">
-                <!-- Background decorative elements for purchase card -->
-                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-brand-500 rounded-full blur-3xl opacity-20"></div>
-                <div class="absolute bottom-0 left-0 -mb-4 -ml-4 w-24 h-24 bg-purple-500 rounded-full blur-3xl opacity-20"></div>
-                
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Дээд зэрэглэлийн дижитал түлхүүр</h2>
-                <p class="text-gray-400 mb-8">Бүх үйлдэл хязгааргүй ажиллах албан ёсны эрх</p>
-                
-                <div class="flex items-center justify-center mb-8">
-                    <span class="text-5xl md:text-6xl font-extrabold text-white tracking-tight">₮49,900</span>
-                </div>
-                
-                <ul class="space-y-4 text-gray-300 max-w-sm mx-auto mb-10 text-left">
-                    <li class="flex items-center">
-                        <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        Бүх насаараа ашиглах эрх
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        1 төхөөрөмжид зориулагдсан
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        Шинэчлэлтүүд багтсан
-                    </li>
-                </ul>
-
-                <button onclick="openModal()" class="w-full sm:w-auto px-12 py-5 text-lg font-bold text-white bg-gradient-to-r from-brand-600 to-brand-500 rounded-full hover:from-brand-500 hover:to-brand-400 transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:shadow-[0_0_30px_rgba(37,99,235,0.7)] transform hover:-translate-y-1">
-                    Худалдаж авах
-                </button>
-                <p class="mt-4 text-sm text-gray-500 flex items-center justify-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    Төлбөрийн мэдээлэл нууцлагдсан
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-950 border-t border-gray-800 py-10 mt-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <a href="#" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-                    <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
-                    Pro<span class="text-brand-500">Key</span>
-                </a>
-                <p class="text-gray-500 text-sm mt-2">© 2024 Бүх эрх хуулиар хамгаалагдсан.</p>
-            </div>
-            <div class="flex space-x-6">
-                <a href="#" class="text-gray-500 hover:text-white transition-colors">Үйлчилгээний нөхцөл</a>
-                <a href="#" class="text-gray-500 hover:text-white transition-colors">Нууцлалын бодлого</a>
-                <a href="#" class="text-gray-500 hover:text-white transition-colors">Холбоо барих</a>
-            </div>
+        <div class="flex space-x-6">
+            <a href="#" class="hover:text-gray-300">Үйлчилгээний нөхцөл</a>
+            <a href="#" class="hover:text-gray-300">Нууцлалын бодлого</a>
+            <a href="#" class="hover:text-gray-300">Холбоо барих</a>
         </div>
     </footer>
 
-    <!-- Custom Modal instead of alert() -->
-    <div id="purchaseModal" class="fixed inset-0 z-[100] hidden items-center justify-center">
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
-        
-        <!-- Modal Content -->
-        <div class="relative bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
-            <div class="absolute top-4 right-4 cursor-pointer text-gray-400 hover:text-white" onclick="closeModal()">
+    <!-- ТӨЛБӨР ТӨЛӨХ MODAL (Анх нууцлагдсан) -->
+    <div id="paymentModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
+        <div class="bg-cardBg border border-gray-700 w-full max-w-md rounded-2xl p-6 relative shadow-2xl">
+            <!-- Хаах товч -->
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-white">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </div>
-            
-            <div class="w-16 h-16 bg-brand-500/20 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <svg class="w-8 h-8 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-            </div>
-            
-            <h3 class="text-2xl font-bold text-center text-white mb-2">Төлбөр төлөх</h3>
-            <p class="text-gray-400 text-center mb-6">Та QPay эсвэл банкны аппликэйшнээр доорх данс руу шилжүүлгэ хийнэ үү.</p>
-            
-            <div class="bg-gray-800 rounded-xl p-4 mb-6">
-                <div class="flex justify-between mb-2">
-                    <span class="text-gray-400">Дүн:</span>
-                    <span class="text-white font-bold">₮49,900</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-400">Данс:</span>
-                    <span class="text-brand-400 font-mono">5000000000 (Хаан банк)</span>
-                </div>
-            </div>
-            
-            <button onclick="closeModal()" class="w-full py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-xl font-medium transition-colors">
-                Хаах
             </button>
+            
+            <div class="flex flex-col items-center mb-6">
+                <div class="bg-gray-800 p-3 rounded-2xl mb-4">
+                    <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white">Төлбөр төлөх</h3>
+                <p class="text-sm text-gray-400 text-center mt-2">Та QPay ашиглан банкны аппликэйшнээрээ шилжүүлэг хийнэ үү.</p>
+            </div>
+
+            <!-- Алхам 1: Имэйл оруулах хэсэг -->
+            <div id="emailSection" class="space-y-4">
+                <div class="bg-gray-800/50 p-4 rounded-xl mb-4 text-sm border border-gray-700">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-400">Дүн:</span>
+                        <span class="font-bold text-white">₮49,900</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Имэйл хаяг (Түлхүүр хүлээн авах)</label>
+                    <input type="email" id="customerEmail" placeholder="bat@gmail.com" class="w-full bg-gray-800 border border-gray-600 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 transition">
+                </div>
+                
+                <button id="generateQrBtn" class="w-full bg-gray-600 hover:bg-gray-500 text-white font-bold py-3 rounded-xl transition mt-4">
+                    Үргэлжлүүлэх
+                </button>
+            </div>
+
+            <!-- Алхам 2: QR код харуулах хэсэг (Эхлээд нууцлагдсан) -->
+            <div id="qrDisplaySection" class="hidden text-center">
+                <div class="bg-white p-4 rounded-xl inline-block mb-4 shadow-lg">
+                    <!-- QR зураг энд орж ирнэ -->
+                    <img id="qpayImage" src="" alt="QPay QR Code" class="w-48 h-48 mx-auto">
+                </div>
+                <p class="text-sm text-green-400 font-medium mt-2">QR кодыг банкны апп-аараа уншуулна уу</p>
+                <p class="text-xs text-gray-500 mt-2">Төлбөр баталгаажмагц таны имэйл рүү эрх илгээгдэнэ.</p>
+            </div>
+            
         </div>
     </div>
 
+    <!-- Frontend Логик (JavaScript) -->
     <script>
-        const modal = document.getElementById('purchaseModal');
-        const modalContent = document.getElementById('modalContent');
+        // Элементүүдийг барьж авах
+        const modal = document.getElementById('paymentModal');
+        const mainBuyBtn = document.getElementById('mainBuyBtn');
+        const navBuyBtn = document.getElementById('navBuyBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        
+        const emailSection = document.getElementById('emailSection');
+        const qrDisplaySection = document.getElementById('qrDisplaySection');
+        const customerEmail = document.getElementById('customerEmail');
+        const generateQrBtn = document.getElementById('generateQrBtn');
+        const qpayImage = document.getElementById('qpayImage');
 
+        // Модал нээх функц
         function openModal() {
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            // Trigger animation
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
         }
 
+        // Модал хаах функц (Хаах үед утгуудыг буцааж хэвэнд нь оруулах)
         function closeModal() {
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            // Wait for animation to finish before hiding
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }, 300);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            
+            // Буцаж анхны алхам руу шилжүүлэх
+            emailSection.classList.remove('hidden');
+            qrDisplaySection.classList.add('hidden');
+            customerEmail.value = '';
+            generateQrBtn.innerText = 'Үргэлжлүүлэх';
+            generateQrBtn.disabled = false;
+            generateQrBtn.classList.replace('bg-blue-600', 'bg-gray-600');
+        }
+
+        mainBuyBtn.addEventListener('click', openModal);
+        navBuyBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Гадна талд дарахад хаагдах
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Имэйлээ оруулаад товч дарах үйлдэл
+        generateQrBtn.addEventListener('click', async () => {
+            const email = customerEmail.value.trim();
+            if (!email || !email.includes('@')) {
+                alert('Зөв имэйл хаяг оруулна уу!');
+                return;
+            }
+
+            // Уншиж буй төлөвт оруулах
+            generateQrBtn.innerText = "Уншиж байна...";
+            generateQrBtn.disabled = true;
+            generateQrBtn.classList.replace('bg-gray-600', 'bg-blue-600');
+
+            try {
+                // Vercel дээрх өөрийн Backend (/api/create-invoice) рүү хандах
+                const response = await fetch('/api/create-invoice', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Byl-с ирж буй QR зургийг авах (API-с хамаарч qr_text, qr_image эсвэл qrData байна)
+                    const qrBase64 = data.qr_text || data.qr_image || data.qrData;
+                    
+                    if(qrBase64) {
+                        qpayImage.src = qrBase64.startsWith('data:image') ? qrBase64 : `data:image/png;base64,${qrBase64}`;
+                        
+                        // Алхам 1-ийг нууж, Алхам 2-ийг (QR код) харуулах
+                        emailSection.classList.add('hidden');
+                        qrDisplaySection.classList.remove('hidden');
+                    } else {
+                        alert("QR зураг олдсонгүй. Серверийн тохиргоог шалгана уу.");
+                        resetBtn();
+                    }
+                } else {
+                    alert("Алдаа гарлаа: " + (data.error || JSON.stringify(data)));
+                    resetBtn();
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Сервертэй холбогдоход алдаа гарлаа. (Сүлжээгээ шалгана уу)");
+                resetBtn();
+            }
+        });
+
+        function resetBtn() {
+            generateQrBtn.innerText = "Үргэлжлүүлэх";
+            generateQrBtn.disabled = false;
+            generateQrBtn.classList.replace('bg-blue-600', 'bg-gray-600');
         }
     </script>
 </body>
