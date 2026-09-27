@@ -51,7 +51,7 @@
             AI зураг, видео, судалгаа, контент, код бичих гээд бүх хэрэгслүүдийг багтаасан Google Pro эрхийг 18 сарын хугацаатай өөрийн аккаунт дээрээ идэвхжүүлээрэй.
         </p>
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <button onclick="openModal()" class="bg-white text-black px-8 py-4 rounded-full font-bold text-lg transition hover:scale-105">
+            <button onclick="openModal()" class="bg-white text-black px-8 py-4 rounded-full font-bold text-lg transition hover:scale-105 shadow-xl shadow-white/10">
                 Одоо авах - 49,000₮
             </button>
             <p class="text-gray-500 line-through text-xl">70,000₮</p>
@@ -107,15 +107,15 @@
                 <li class="flex items-center"><svg class="w-5 h-5 text-googleGreen mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 18 сарын баталгаат хугацаа</li>
                 <li class="flex items-center"><svg class="w-5 h-5 text-googleGreen mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Сар бүр 1,000 AI credit</li>
             </ul>
-            <button onclick="openModal()" class="bg-white text-black hover:bg-gray-200 w-full py-4 rounded-xl font-bold text-lg transition">
+            <button onclick="openModal()" class="bg-white text-black hover:bg-gray-200 w-full py-4 rounded-xl font-bold text-lg transition shadow-lg shadow-white/5">
                 Худалдаж авах
             </button>
         </div>
     </section>
 
-    <!-- Modal -->
+    <!-- Modal (Төлбөр төлөх) -->
     <div id="paymentModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center z-50 px-4">
-        <div class="bg-cardBg border border-gray-700 w-full max-w-md rounded-2xl p-6 relative">
+        <div class="bg-cardBg border border-gray-700 w-full max-w-md rounded-2xl p-6 relative shadow-2xl">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             <h3 class="text-xl font-bold text-white mb-6 text-center">Төлбөр төлөх (QPay)</h3>
             
@@ -127,15 +127,24 @@
             </div>
 
             <div id="qrDisplaySection" class="hidden flex-col items-center text-center">
-                <div class="bg-white p-3 rounded-xl inline-block mb-4">
-                    <img id="qpayImage" src="" alt="QR" class="w-48 h-48 mx-auto object-contain">
+                <div class="bg-white p-3 rounded-xl inline-block mb-4 shadow-lg">
+                    <img id="qpayImage" src="" alt="QPay QR Code" class="w-48 h-48 mx-auto object-contain">
                 </div>
-                <p class="text-sm text-googleGreen font-bold mt-2">Төлбөр шалгаж байна...</p>
-                <p class="text-xs text-gray-400 mt-2">Төлөгдмөгц автоматаар эрхийн хуудас руу шилжинэ.</p>
+                <p class="text-sm text-googleGreen font-bold mt-2 flex items-center justify-center">
+                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-googleGreen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Төлбөр шалгаж байна...
+                </p>
+                <p class="text-xs text-gray-400 mt-3 bg-gray-800 p-3 rounded-lg border border-gray-700">
+                    Төлбөр амжилттай болмогц таны эрхийг автоматаар олгоно. (Цонхыг битгий хаагаарай)
+                </p>
             </div>
         </div>
     </div>
 
+    <!-- Frontend Логик (JavaScript) -->
     <script>
         const modal = document.getElementById('paymentModal');
         const emailSection = document.getElementById('emailSection');
@@ -153,14 +162,20 @@
             if(checkInterval) clearInterval(checkInterval);
         }
 
+        // Гадна талд дарахад хаагдах
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
         generateQrBtn.addEventListener('click', async () => {
             const email = customerEmail.value.trim();
-            if (!email || !email.includes('@')) { alert('Зөв имэйл оруулна уу!'); return; }
+            if (!email || !email.includes('@')) { alert('Зөв имэйл хаяг оруулна уу!'); return; }
 
             generateQrBtn.innerHTML = `Уншиж байна...`;
             generateQrBtn.disabled = true;
 
             try {
+                // Сервер рүү хүсэлт илгээх
                 const response = await fetch('/api/create-invoice', {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email })
@@ -168,8 +183,9 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    const qrBase64 = data.qr_text || data.qr_image || data.qrData || data.qrCode || data.qr;
-                    const paymentUrl = data.url || data.checkoutUrl || data.paymentUrl || data.link;
+                    // Зураг болон URL ирсэн эсэхийг давхар шалгах (data.data.url дэмждэг болгосон)
+                    const qrBase64 = data.qr_text || data.qr_image || data.qrData || data.qrCode || (data.data && data.data.qr_text);
+                    const paymentUrl = data.url || data.checkoutUrl || data.paymentUrl || data.link || (data.data && data.data.url);
 
                     if (qrBase64) {
                         qpayImage.src = qrBase64.startsWith('data:image') ? qrBase64 : `data:image/png;base64,${qrBase64}`;
@@ -177,29 +193,51 @@
                         qrDisplaySection.classList.remove('hidden');
                         qrDisplaySection.classList.add('flex');
                     } else if (paymentUrl) {
-                        window.open(paymentUrl, '_blank');
-                        generateQrBtn.innerHTML = "Төлбөр шалгаж байна (Битгий хаагаарай)...";
+                        // Хөтөч (Browser) pop-up хааж магадгүй тул хэрэглэгчид сануулах
+                        const newTab = window.open(paymentUrl, '_blank');
+                        if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+                            alert("Таны хөтөч шинэ цонх нээхийг хаасан байна. Хөтчийнхөө баруун дээд булангаас 'Pop-up зөвшөөрөх' тохиргоог хийнэ үү.");
+                        }
+                        
+                        emailSection.classList.add('hidden');
+                        qrDisplaySection.classList.remove('hidden');
+                        qrDisplaySection.classList.add('flex');
+                        qpayImage.parentElement.style.display = 'none'; // Зураг байхгүй үед зурагны хүрээг устгах
                     } else {
                         alert("Серверийн хариу: " + JSON.stringify(data)); resetBtn(); return;
                     }
 
-                    // Төлбөр шалгах логик
+                    // 3 СЕКУНД ТУТАМД ТӨЛБӨР ТӨЛӨГДСӨН ЭСЭХИЙГ ШАЛГАХ
                     checkInterval = setInterval(async () => {
                         try {
                             const checkRes = await fetch(`/api/check-status?email=${encodeURIComponent(email)}`);
                             const checkData = await checkRes.json();
+                            
                             if (checkData.status === 'paid') {
-                                clearInterval(checkInterval);
+                                clearInterval(checkInterval); // Шалгахыг зогсоох
+                                // Төлөгдсөн бол автоматаар success.html рүү үсрүүлэх
                                 window.location.href = `/success.html?link=${encodeURIComponent(checkData.link)}`;
                             }
-                        } catch (e) { console.log(e); }
-                    }, 3000);
+                        } catch (e) {
+                            console.log("Шалгах үед алдаа гарлаа", e);
+                        }
+                    }, 3000); // 3000ms = 3 sec
 
-                } else { alert("Алдаа: " + data.error); resetBtn(); }
-            } catch (error) { alert("Сервертэй холбогдсонгүй."); resetBtn(); }
+                } else { 
+                    alert("Алдаа: " + (data.error || "Тодорхойгүй алдаа")); 
+                    resetBtn(); 
+                }
+            } catch (error) { 
+                console.error(error);
+                alert("Сервертэй холбогдсонгүй. Сүлжээгээ шалгана уу."); 
+                resetBtn(); 
+            }
         });
 
-        function resetBtn() { generateQrBtn.innerHTML = "Үргэлжлүүлэх"; generateQrBtn.disabled = false; }
+        function resetBtn() { 
+            generateQrBtn.innerHTML = "Үргэлжлүүлэх"; 
+            generateQrBtn.disabled = false; 
+        }
     </script>
 </body>
 </html>
