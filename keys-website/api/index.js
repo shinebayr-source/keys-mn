@@ -24,7 +24,7 @@ app.post('/api/create-invoice', async (req, res) => {
     const { email } = req.body;
     
     const invoiceData = {
-        projectId: process.env.BYL_PROJECT_ID,
+        projectId: parseInt(process.env.BYL_PROJECT_ID),
         amount: PRODUCT_PRICE,
         description: "KEYS.MN - Онцгой эрх / Түлхүүр",
         metadata: { customer_email: email }
