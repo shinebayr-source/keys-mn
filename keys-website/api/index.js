@@ -7,26 +7,24 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Byl.mn болон бусад тохиргоо (Vercel-ийн тохиргооноос автоматаар уншина)
 const BYL_API_URL = 'https://api.byl.mn/v1'; 
-const PRODUCT_PRICE = 50000;
+const PRODUCT_PRICE = 49900;
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL_USER,       // Имэйл хаяг
-        pass: process.env.EMAIL_PASSWORD    // Gmail app password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
     }
 });
 
-// Нэхэмжлэх үүсгэх API
 app.post('/api/create-invoice', async (req, res) => {
     const { email } = req.body;
     
     const invoiceData = {
-        projectId: parseInt(process.env.BYL_PROJECT_ID),
+        projectId: parseInt(process.env.BYL_PROJECT_ID), // Тоо болгож хувиргасан
         amount: PRODUCT_PRICE,
-        description: "KEYS.MN - Онцгой эрх / Түлхүүр",
+        description: "Pro Key - Дээд зэрэглэлийн дижитал түлхүүр",
         metadata: { customer_email: email }
     };
 
@@ -39,23 +37,28 @@ app.post('/api/create-invoice', async (req, res) => {
         });
         res.json(response.data);
     } catch (error) {
-        res.status(500).json({ error: "Нэхэмжлэх үүсгэх боломжгүй байна" });
+        // АЛДААГ БАРИЖ АВААД ШУУД ВЭБСАЙТ РУУ ИЛГЭЭХ
+        const errorDetail = error.response ? error.response.data : error.message;
+        console.error("API Error:", errorDetail);
+        
+        res.status(500).json({ 
+            error: "Byl API алдаа: " + JSON.stringify(errorDetail) 
+        });
     }
 });
 
-// Webhook хүлээж авах API
 app.post('/api/qpay-callback', async (req, res) => {
     const paymentData = req.body; 
     
     if (paymentData.status === 'PAID') {
         const userEmail = paymentData.metadata.customer_email;
-        const generatedKey = `KEYS-MN-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+        const generatedKey = `PROKEY-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: userEmail,
-            subject: 'Таны худалдан авсан эрх - KEYS.MN',
-            text: `Баярлалаа! Таны төлбөр амжилттай баталгаажлаа.\n\nТаны худалдаж авсан эрх/түлхүүр: ${generatedKey}\n\nKEYS.MN`
+            subject: 'Таны худалдан авсан эрх - Pro Key',
+            text: `Баярлалаа! Таны төлбөр амжилттай баталгаажлаа.\n\nТаны худалдаж авсан эрх/түлхүүр: ${generatedKey}\n\nPro Key`
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -66,5 +69,4 @@ app.post('/api/qpay-callback', async (req, res) => {
     res.status(200).send("OK");
 });
 
-// Vercel-д зориулсан export
 module.exports = app;
