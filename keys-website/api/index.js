@@ -2,90 +2,113 @@ const express = require('express');
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const { GoogleSpreadsheet } = require('google-spreadsheet');
+const { JWT } = require('google-auth-library');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// API хаяг болон бүтээгдэхүүний үнэ
 const BYL_API_URL = 'https://byl.mn/api/v1'; 
 const PRODUCT_PRICE = 49900;
 
-// Имэйл илгээх тохиргоо (Vercel Environment Variables-аас уншина)
 const transporter = nodemailer.createTransport({
     service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
-    }
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASSWORD }
 });
 
-// 1. Нэхэмжлэх үүсгэх API
+// Vercel KV Функцүүд (Frontend polling-д зориулагдсан)
+async function kvSet(key, value) {
+    if(!process.env.KV_REST_API_URL) return;
+    await axios.post(`${process.env.KV_REST_API_URL}/set/${key}/${encodeURIComponent(value)}`, {}, {
+        headers: { Authorization: `Bearer ${process.env.KV_REST_API_TOKEN}` }
+    });
+}
+async function kvGet(key) {
+    if(!process.env.KV_REST_API_URL) return null;
+    try {
+        const res = await axios.get(`${process.env.KV_REST_API_URL}/get/${key}`, {
+            headers: { Authorization: `Bearer ${process.env.KV_REST_API_TOKEN}` }
+        });
+        return decodeURIComponent(res.data.result);
+    } catch(e) { return null; }
+}
+
 app.post('/api/create-invoice', async (req, res) => {
     const { email } = req.body;
-    
-    // Project ID-г тусад нь хувьсагчид авах
-    const projectId = process.env.BYL_PROJECT_ID; 
-
-    // Byl.mn рүү явуулах датаны бүтэц
-    const invoiceData = {
-        amount: PRODUCT_PRICE,
-        description: "Pro Key - Дээд зэрэглэлийн дижитал түлхүүр",
-        metadata: { customer_email: email },
-        // Төлбөр төлөгдсөний дараа автоматаар буцах амжилттай болсон хуудасны хаяг
-        return_url: "https://keys-mn-ten.vercel.app/success.html", 
-        redirect_url: "https://keys-mn-ten.vercel.app/success.html" 
-    };
-
     try {
-        // BYL.mn-ийн зөв хаяг руу хандах
-        const response = await axios.post(`${BYL_API_URL}/projects/${projectId}/invoices`, invoiceData, {
-            headers: { 
-                'Authorization': `Bearer ${process.env.BYL_TOKEN}`,
-                'Content-Type': 'application/json'
-            }
+        const response = await axios.post(`${BYL_API_URL}/projects/${process.env.BYL_PROJECT_ID}/invoices`, {
+            amount: PRODUCT_PRICE,
+            description: "Google AI Pro - 18 сар",
+            metadata: { customer_email: email }
+        }, {
+            headers: { 'Authorization': `Bearer ${process.env.BYL_TOKEN}` }
         });
-        
-        // Хэрэв амжилттай болбол Фронтенд рүү датаг буцаах
         res.json(response.data);
-    } catch (error) {
-        // Алдаа гарвал дэлгэцэнд харуулах
-        const errorDetail = error.response ? error.response.data : error.message;
-        console.error("API Error:", errorDetail);
-        
-        res.status(500).json({ 
-            error: "Byl API алдаа: " + JSON.stringify(errorDetail) 
-        });
-    }
+    } catch (error) { res.status(500).json({ error: "Byl API алдаа" }); }
 });
 
-// 2. Төлбөр төлөгдсөн мэдэгдэл хүлээж авах Webhook
+app.get('/api/check-status', async (req, res) => {
+    const { email } = req.query;
+    if(!email) return res.json({ status: 'pending' });
+    const status = await kvGet(`payment_${email}`);
+    const assignedLink = await kvGet(`link_${email}`);
+    if (status === 'paid') res.json({ status: 'paid', link: assignedLink });
+    else res.json({ status: 'pending' });
+});
+
 app.post('/api/qpay-callback', async (req, res) => {
     const paymentData = req.body; 
     
-    // Төлбөрийн төлөв 'paid' эсвэл 'complete' болсон эсэхийг шалгах
     if (paymentData.status === 'paid' || paymentData.status === 'complete') {
         const userEmail = paymentData.metadata?.customer_email || paymentData.customer_email;
-        const generatedKey = `PROKEY-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-
+        
         if (userEmail) {
+            let assignedLink = "Линк дууссан байна. Админтай холбогдоно уу.";
+            
+            // GOOGLE SHEET-ЭЭС ЛИНК СУГАЛАХ ПРОЦЕСС
+            if(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY) {
+                try {
+                    const auth = new JWT({
+                        email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+                        key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Private key-г унших
+                        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+                    });
+                    
+                    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, auth);
+                    await doc.loadInfo();
+                    const sheet = doc.sheetsByIndex[0];
+                    const rows = await sheet.getRows();
+
+                    for (let row of rows) {
+                        // A баганыг 'Link', B баганыг 'Status' гэж толгой (header) өгсөн байна гэж үзнэ
+                        if (row.get('Link') && !row.get('Status')) {
+                            assignedLink = row.get('Link');
+                            row.assign({ 'Status': userEmail }); // B баганад имэйлийг нь бичнэ
+                            await row.save();
+                            break; // Олдсон тул зогсоно
+                        }
+                    }
+                } catch(e) {
+                    console.error("Google Sheet алдаа:", e);
+                }
+            }
+
+            // Төлөвийг KV-д хадгалах
+            await kvSet(`payment_${userEmail}`, 'paid');
+            await kvSet(`link_${userEmail}`, assignedLink);
+
+            // Имэйлээр явуулах
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: userEmail,
-                subject: 'Таны худалдан авсан эрх - Pro Key',
-                text: `Баярлалаа! Таны төлбөр амжилттай баталгаажлаа.\n\nТаны худалдаж авсан эрх/түлхүүр: ${generatedKey}\n\nИдэвхжүүлэх заавар:\n1. Систем рүүгээ нэвтэрч орно уу.\n2. Тохиргоо (Settings) хэсэг рүү орно.\n3. "Activate" хэсэгт дээрх түлхүүрийг хуулж тавина.\n\nPro Key`
+                subject: 'Таны Google AI Pro эрх',
+                text: `Баярлалаа! Таны худалдан авалт амжилттай.\n\nТаны идэвхжүүлэх линк: ${assignedLink}\n\nGoogle хаягаараа нэвтэрч орж идэвхжүүлээрэй.`
             };
-
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) console.log("Имэйл илгээхэд алдаа гарлаа:", error);
-                else console.log("Имэйл амжилттай илгээгдлээ.");
-            });
+            transporter.sendMail(mailOptions, (e, i) => {});
         }
     }
-
-    // Byl-д мэдээллийг хүлээж авснаа баталгаажуулж заавал OK буцаах ёстой
     res.status(200).send("OK");
 });
 
-// Vercel-д зориулсан export
 module.exports = app;
