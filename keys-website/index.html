@@ -3,221 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Key - Дээд зэрэглэлийн дижитал түлхүүр</title>
+    <title>Google AI Pro - 18 сарын эрх</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#090E17',
-                        cardBg: '#131A26',
-                        primary: '#2563EB',
-                        primaryHover: '#1D4ED8'
+                        darkBg: '#0f1115',
+                        cardBg: '#181b21',
+                        googleBlue: '#4285F4',
+                        googleRed: '#EA4335',
+                        googleYellow: '#FBBC05',
+                        googleGreen: '#34A853'
                     }
                 }
             }
         }
     </script>
-    <style>
-        body { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
-    </style>
+    <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
 <body class="bg-darkBg text-white antialiased">
 
-    <!-- Navbar / Дээд цэс -->
+    <!-- Navbar -->
     <nav class="fixed w-full z-40 bg-darkBg/90 backdrop-blur-md border-b border-gray-800">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
-                <h1 class="text-2xl font-bold tracking-tight">Pro <span class="text-blue-500">Key</span></h1>
+            <div class="flex items-center space-x-2 font-bold text-xl tracking-tight">
+                <span class="text-googleBlue">G</span><span class="text-googleRed">o</span><span class="text-googleYellow">o</span><span class="text-googleBlue">g</span><span class="text-googleGreen">l</span><span class="text-googleRed">e</span>
+                <span class="ml-1 text-white">AI Pro</span>
             </div>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
-                <a href="#home" class="hover:text-white transition">Нүүр</a>
-                <a href="#features" class="hover:text-white transition">Онцлог</a>
-                <a href="#purchase" class="hover:text-white transition">Үнэ</a>
-            </div>
-            <button onclick="openModal()" class="bg-primary hover:bg-primaryHover text-white px-5 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-blue-500/30">
+            <button onclick="openModal()" class="bg-googleBlue hover:bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-blue-500/30">
                 Худалдаж авах
             </button>
         </div>
     </nav>
 
-    <!-- Hero Section / Нүүр танилцуулга -->
-    <section id="home" class="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between">
-        <div class="md:w-1/2 text-center md:text-left mb-12 md:mb-0">
-            <div class="inline-block bg-blue-900/30 border border-blue-500/30 text-blue-400 px-3 py-1 rounded-full text-xs font-semibold mb-6">
-                Шинэ хувилбар 2.0 гарлаа
-            </div>
-            <h2 class="text-5xl md:text-6xl font-black mb-6 leading-tight">
-                Дижитал амьдралаа <br> <span class="text-blue-500">хязгааргүй</span> болго
-            </h2>
-            <p class="text-gray-400 text-lg mb-8 max-w-lg mx-auto md:mx-0">
-                Бүх үйлдэл хязгааргүй ажиллах албан ёсны эрх. Яг одоо худалдан авч, төлбөр төлөгдмөгц имэйлээрээ шууд хүлээн аваарай.
-            </p>
-            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
-                <a href="#purchase" class="bg-primary hover:bg-primaryHover text-white px-8 py-4 rounded-full font-bold text-lg transition text-center">
-                    Одоо авах
-                </a>
-                <a href="#features" class="bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-full font-bold text-lg transition text-center border border-gray-700">
-                    Дэлгэрэнгүй
-                </a>
-            </div>
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 max-w-6xl mx-auto text-center">
+        <div class="inline-block bg-blue-900/30 border border-googleBlue/30 text-blue-400 px-4 py-1.5 rounded-full text-sm font-bold mb-6">
+            Баталгаат хугацаа: 18 САР
         </div>
-        <div class="md:w-1/2 flex justify-center">
-            <!-- Та энд өөрийн бүтээгдэхүүний зургийг оруулж болно -->
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Product Demo" class="rounded-2xl shadow-2xl shadow-blue-900/20 w-full max-w-md object-cover h-80 border border-gray-800">
+        <h1 class="text-5xl md:text-6xl font-black mb-6 leading-tight">
+            Google-ийн хүчирхэг AI-г <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-googleBlue via-googleRed to-googleYellow">нэг дор ашигла</span>
+        </h1>
+        <p class="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+            AI зураг, видео, судалгаа, контент, код бичих гээд бүх хэрэгслүүдийг багтаасан Google Pro эрхийг 18 сарын хугацаатай өөрийн аккаунт дээрээ идэвхжүүлээрэй.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <button onclick="openModal()" class="bg-white text-black px-8 py-4 rounded-full font-bold text-lg transition hover:scale-105">
+                Одоо авах - 49,000₮
+            </button>
+            <p class="text-gray-500 line-through text-xl">70,000₮</p>
         </div>
     </section>
 
-    <!-- Features Section / Давуу талууд -->
-    <section id="features" class="py-20 bg-cardBg border-y border-gray-800">
+    <!-- Features Section -->
+    <section class="py-20 bg-cardBg border-y border-gray-800">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h3 class="text-3xl font-bold mb-4">Яагаад Pro Key-ийг сонгох вэ?</h3>
-                <p class="text-gray-400">Бид танд хамгийн найдвартай, хурдан үйлчилгээг санал болгож байна.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="bg-darkBg p-8 rounded-2xl border border-gray-800">
-                    <div class="bg-blue-900/40 w-12 h-12 flex items-center justify-center rounded-xl mb-6">
-                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3">Автомат хүргэлт</h4>
-                    <p class="text-gray-400 text-sm">Төлбөр шилжмэгц хэдхэн секундын дотор таны имэйл хаяг руу түлхүүр үг автоматаар очих болно.</p>
+            <h3 class="text-3xl font-bold mb-12 text-center">Эрхийн хүрээнд юу ашиглах боломжтой вэ?</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 1 -->
+                <div class="bg-darkBg p-6 rounded-2xl border border-gray-800 hover:border-googleBlue/50 transition">
+                    <h4 class="text-lg font-bold mb-2 text-googleBlue">Gemini Pro</h4>
+                    <p class="text-gray-400 text-sm">Өдөр тутмын асуултаас эхлээд урт хэмжээний мэдээлэл боловсруулах, контент гаргах, санаа хөгжүүлэх болон нарийвчилсан Deep Research хийхэд ашиглана.</p>
                 </div>
-                <!-- Feature 2 -->
-                <div class="bg-darkBg p-8 rounded-2xl border border-gray-800">
-                    <div class="bg-green-900/40 w-12 h-12 flex items-center justify-center rounded-xl mb-6">
-                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3">Найдвартай баталгаа</h4>
-                    <p class="text-gray-400 text-sm">Албан ёсны эрх тул ямар нэгэн блок, хязгаарлалтад орохгүй бөгөөд бүх насаараа ашиглах боломжтой.</p>
+                <!-- 2 -->
+                <div class="bg-darkBg p-6 rounded-2xl border border-gray-800 hover:border-googleRed/50 transition">
+                    <h4 class="text-lg font-bold mb-2 text-googleRed">Nano Banana Pro</h4>
+                    <p class="text-gray-400 text-sm">AI ашиглан өндөр чанартай зураг бүтээх, зураг засварлах, контент болон сурталчилгааны визуал бэлтгэх боломжтой.</p>
                 </div>
-                <!-- Feature 3 -->
-                <div class="bg-darkBg p-8 rounded-2xl border border-gray-800">
-                    <div class="bg-purple-900/40 w-12 h-12 flex items-center justify-center rounded-xl mb-6">
-                        <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3">24/7 Цахим үйлчилгээ</h4>
-                    <p class="text-gray-400 text-sm">Хэзээ ч, хаанаас ч худалдан авалт хийх боломжтой. Манай систем тасралтгүй 24 цагаар ажиллана.</p>
+                <!-- 3 -->
+                <div class="bg-darkBg p-6 rounded-2xl border border-gray-800 hover:border-googleYellow/50 transition">
+                    <h4 class="text-lg font-bold mb-2 text-googleYellow">Flow + AI Видео</h4>
+                    <p class="text-gray-400 text-sm">Flow орчинд Veo, Omni зэрэг загваруудыг ашиглан мэргэжлийн AI видео бүтээнэ.</p>
+                </div>
+                <!-- 4 -->
+                <div class="bg-darkBg p-6 rounded-2xl border border-gray-800 hover:border-googleGreen/50 transition">
+                    <h4 class="text-lg font-bold mb-2 text-googleGreen">Google Workspace</h4>
+                    <p class="text-gray-400 text-sm">Gmail, Docs, Sheets, Slides, Drive-тай AI-гаа хослуулж мэйл боловсруулах, текст бичих, документ дээр ажиллах ажлуудаа хурдасгана.</p>
+                </div>
+                <!-- 5 -->
+                <div class="bg-darkBg p-6 rounded-2xl border border-gray-800 hover:border-blue-400/50 transition">
+                    <h4 class="text-lg font-bold mb-2 text-blue-400">Developer Tools</h4>
+                    <p class="text-gray-400 text-sm">Код бичих, тайлбарлуулах, алдаа илрүүлэх. Antigravity, Jules зэрэг нэмэлт хэрэгслүүдэд өргөтгөсөн боломжууд дагалдана.</p>
+                </div>
+                <!-- 6 -->
+                <div class="bg-darkBg p-6 rounded-2xl border border-gray-800 hover:border-purple-400/50 transition">
+                    <h4 class="text-lg font-bold mb-2 text-purple-400">NotebookLM & 5TB Storage</h4>
+                    <p class="text-gray-400 text-sm">PDF, номоо AI-аар уншуулж Audio Overview (подкаст) үүсгэх. Мөн Google-ийн 5TB хадгалах нэмэлт багтаамж багтсан.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Purchase Section / Худалдан авах (Таны өмнөх зураг дээрх карт) -->
-    <section id="purchase" class="py-24 px-6 flex justify-center">
-        <div class="bg-cardBg border border-gray-800 rounded-[2rem] p-8 md:p-12 max-w-xl w-full shadow-2xl text-center relative overflow-hidden">
-            <!-- Арын гэрэлтэлт эффект -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-blue-600/20 blur-[60px] pointer-events-none"></div>
-
-            <h2 class="text-3xl font-extrabold mb-2 text-gray-100 relative z-10">Дээд зэрэглэлийн дижитал түлхүүр</h2>
-            <p class="text-gray-400 mb-8 text-sm relative z-10">Бүх үйлдэл хязгааргүй ажиллах албан ёсны эрх</p>
-            
-            <div class="text-5xl font-black mb-8 tracking-tight relative z-10">
-                ₮49,900
-            </div>
-            
-            <div class="flex flex-col items-center space-y-4 mb-10 text-gray-300 text-sm relative z-10">
-                <div class="flex items-center">
-                    <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                    Бүх насаараа ашиглах эрх
-                </div>
-                <div class="flex items-center">
-                    <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                    1 төхөөрөмжид зориулагдсан
-                </div>
-                <div class="flex items-center">
-                    <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                    Шинэчлэлтүүд багтсан
-                </div>
-            </div>
-            
-            <button onclick="openModal()" class="relative z-10 bg-primary hover:bg-primaryHover w-full py-4 rounded-full font-bold text-lg transition-transform transform hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+    <!-- Pricing Card -->
+    <section class="py-24 px-6 flex justify-center">
+        <div class="bg-cardBg border border-gray-800 rounded-[2rem] p-10 max-w-md w-full shadow-2xl text-center">
+            <h2 class="text-2xl font-bold mb-2">18 Сарын Google Pro Эрх</h2>
+            <div class="text-5xl font-black my-6">₮49,900</div>
+            <ul class="text-gray-400 text-sm space-y-3 mb-8 text-left">
+                <li class="flex items-center"><svg class="w-5 h-5 text-googleGreen mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Өөрийн аккаунт дээр идэвхжүүлнэ</li>
+                <li class="flex items-center"><svg class="w-5 h-5 text-googleGreen mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 18 сарын баталгаат хугацаа</li>
+                <li class="flex items-center"><svg class="w-5 h-5 text-googleGreen mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Сар бүр 1,000 AI credit</li>
+            </ul>
+            <button onclick="openModal()" class="bg-white text-black hover:bg-gray-200 w-full py-4 rounded-xl font-bold text-lg transition">
                 Худалдаж авах
             </button>
-            
-            <p class="mt-6 text-xs text-gray-500 flex items-center justify-center relative z-10">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                Төлбөрийн мэдээлэл нууцлагдсан
-            </p>
         </div>
     </section>
 
-    <!-- Footer / Хөл хэсэг -->
-    <footer class="border-t border-gray-800 py-10 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-            <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
-                <span class="font-bold text-gray-300">Pro Key</span>
-                <span class="ml-2">© 2026 Бүх эрх хуулиар хамгаалагдсан.</span>
-            </div>
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-gray-300 transition">Үйлчилгээний нөхцөл</a>
-                <a href="#" class="hover:text-gray-300 transition">Нууцлалын бодлого</a>
-                <a href="#" class="hover:text-gray-300 transition">Холбоо барих</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ========================================== -->
-    <!-- ТӨЛБӨР ТӨЛӨХ MODAL (Анх нууцлагдсан) -->
-    <!-- ========================================== -->
-    <div id="paymentModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex-col items-center justify-center z-50 px-4 transition-all">
-        <div class="bg-cardBg border border-gray-700 w-full max-w-md rounded-2xl p-6 relative shadow-2xl">
-            <!-- Хаах товч -->
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+    <!-- Modal -->
+    <div id="paymentModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center z-50 px-4">
+        <div class="bg-cardBg border border-gray-700 w-full max-w-md rounded-2xl p-6 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <h3 class="text-xl font-bold text-white mb-6 text-center">Төлбөр төлөх (QPay)</h3>
             
-            <div class="flex flex-col items-center mb-6">
-                <div class="bg-gray-800 p-3 rounded-2xl mb-4">
-                    <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-white">Төлбөр төлөх</h3>
-                <p class="text-sm text-gray-400 text-center mt-2">Та QPay ашиглан банкны аппликэйшнээрээ шилжүүлэг хийнэ үү.</p>
-            </div>
-
-            <!-- Алхам 1: Имэйл оруулах хэсэг -->
             <div id="emailSection" class="space-y-4">
-                <div class="bg-gray-800/50 p-4 rounded-xl mb-4 text-sm border border-gray-700">
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-400">Төлөх дүн:</span>
-                        <span class="font-bold text-lg text-white">₮49,900</span>
-                    </div>
-                </div>
-                
-                <div>
-                    <label class="block text-sm text-gray-400 mb-1">Имэйл хаяг (Түлхүүр хүлээн авах)</label>
-                    <input type="email" id="customerEmail" placeholder="жишээ: bat@gmail.com" class="w-full bg-gray-800 border border-gray-600 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 transition">
-                </div>
-                
-                <button id="generateQrBtn" class="w-full bg-primary hover:bg-primaryHover text-white font-bold py-3 rounded-xl transition mt-4 shadow-lg shadow-blue-500/20">
+                <input type="email" id="customerEmail" placeholder="Имэйл хаяг (Жишээ: bat@gmail.com)" class="w-full bg-gray-800 border border-gray-600 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-googleBlue">
+                <button id="generateQrBtn" class="w-full bg-googleBlue hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition mt-4">
                     Үргэлжлүүлэх
                 </button>
             </div>
 
-            <!-- Алхам 2: QR код харуулах хэсэг (Эхлээд нууцлагдсан) -->
             <div id="qrDisplaySection" class="hidden flex-col items-center text-center">
-                <div class="bg-white p-3 rounded-xl inline-block mb-4 shadow-lg">
-                    <!-- QR зураг энд орж ирнэ -->
-                    <img id="qpayImage" src="" alt="QPay QR Code" class="w-48 h-48 mx-auto object-contain">
+                <div class="bg-white p-3 rounded-xl inline-block mb-4">
+                    <img id="qpayImage" src="" alt="QR" class="w-48 h-48 mx-auto object-contain">
                 </div>
-                <p class="text-sm text-green-400 font-bold mt-2 flex items-center justify-center">
-                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Төлбөр хүлээгдэж байна...
-                </p>
-                <p class="text-xs text-gray-400 mt-2 bg-gray-800 p-3 rounded-lg border border-gray-700">
-                    Төлбөр амжилттай болмогц цонх хаагдаж, таны имэйл рүү эрх илгээгдэх болно.
-                </p>
+                <p class="text-sm text-googleGreen font-bold mt-2">Төлбөр шалгаж байна...</p>
+                <p class="text-xs text-gray-400 mt-2">Төлөгдмөгц автоматаар эрхийн хуудас руу шилжинэ.</p>
             </div>
-            
         </div>
     </div>
 
-    <!-- Frontend Логик (JavaScript) -->
-    <!-- Frontend Логик (JavaScript) -->
     <script>
         const modal = document.getElementById('paymentModal');
         const emailSection = document.getElementById('emailSection');
@@ -225,92 +143,63 @@
         const customerEmail = document.getElementById('customerEmail');
         const generateQrBtn = document.getElementById('generateQrBtn');
         const qpayImage = document.getElementById('qpayImage');
+        let checkInterval;
 
-        function openModal() {
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
+        function openModal() { modal.classList.remove('hidden'); modal.classList.add('flex'); }
         function closeModal() {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            
-            // Буцаж анхны төлөвт оруулах
-            emailSection.classList.remove('hidden');
-            qrDisplaySection.classList.remove('flex');
-            qrDisplaySection.classList.add('hidden');
-            customerEmail.value = '';
-            resetBtn();
+            modal.classList.add('hidden'); modal.classList.remove('flex');
+            emailSection.classList.remove('hidden'); qrDisplaySection.classList.add('hidden');
+            customerEmail.value = ''; resetBtn();
+            if(checkInterval) clearInterval(checkInterval);
         }
 
-        // Гадна талд дарахад хаагдах
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        // Имэйлээ оруулаад товч дарах
         generateQrBtn.addEventListener('click', async () => {
             const email = customerEmail.value.trim();
-            if (!email || !email.includes('@')) {
-                alert('Зөв имэйл хаяг оруулна уу!');
-                return;
-            }
+            if (!email || !email.includes('@')) { alert('Зөв имэйл оруулна уу!'); return; }
 
-            generateQrBtn.innerHTML = `
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Уншиж байна...`;
+            generateQrBtn.innerHTML = `Уншиж байна...`;
             generateQrBtn.disabled = true;
 
             try {
-                // Vercel дээрх өөрийн Backend (/api/create-invoice) рүү хандах
                 const response = await fetch('/api/create-invoice', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email })
                 });
-
                 const data = await response.json();
 
                 if (response.ok) {
-                    // 1. Зураг ирсэн эсэхийг олон хувилбараар шалгах
                     const qrBase64 = data.qr_text || data.qr_image || data.qrData || data.qrCode || data.qr;
-                    
-                    // 2. Линк (URL) ирсэн эсэхийг шалгах
-                    const paymentUrl = data.url || data.checkoutUrl || data.paymentUrl || data.link || (data.data && data.data.url);
+                    const paymentUrl = data.url || data.checkoutUrl || data.paymentUrl || data.link;
 
                     if (qrBase64) {
-                        // Зураг байвал дэлгэцэнд гаргах
                         qpayImage.src = qrBase64.startsWith('data:image') ? qrBase64 : `data:image/png;base64,${qrBase64}`;
                         emailSection.classList.add('hidden');
                         qrDisplaySection.classList.remove('hidden');
                         qrDisplaySection.classList.add('flex');
                     } else if (paymentUrl) {
-                        // Линк байвал Byl.mn-ийн төлбөрийн хуудас руу шууд үсрүүлэх
-                        generateQrBtn.innerHTML = "Төлбөрийн хуудас руу шилжиж байна...";
-                        window.location.href = paymentUrl;
+                        window.open(paymentUrl, '_blank');
+                        generateQrBtn.innerHTML = "Төлбөр шалгаж байна (Битгий хаагаарай)...";
                     } else {
-                        // Зураг ч, линк ч байхгүй бол яг юу ирснийг дэлгэцэнд харуулах
-                        alert("Byl.mn-ээс ирсэн дата: " + JSON.stringify(data));
-                        resetBtn();
+                        alert("Серверийн хариу: " + JSON.stringify(data)); resetBtn(); return;
                     }
-                } else {
-                    alert("Алдаа гарлаа: " + (data.error || "Тодорхойгүй алдаа"));
-                    resetBtn();
-                }
-            } catch (error) {
-                console.error(error);
-                alert("Сервертэй холбогдоход алдаа гарлаа. (Сүлжээгээ шалгана уу)");
-                resetBtn();
-            }
+
+                    // Төлбөр шалгах логик
+                    checkInterval = setInterval(async () => {
+                        try {
+                            const checkRes = await fetch(`/api/check-status?email=${encodeURIComponent(email)}`);
+                            const checkData = await checkRes.json();
+                            if (checkData.status === 'paid') {
+                                clearInterval(checkInterval);
+                                window.location.href = `/success.html?link=${encodeURIComponent(checkData.link)}`;
+                            }
+                        } catch (e) { console.log(e); }
+                    }, 3000);
+
+                } else { alert("Алдаа: " + data.error); resetBtn(); }
+            } catch (error) { alert("Сервертэй холбогдсонгүй."); resetBtn(); }
         });
 
-        function resetBtn() {
-            generateQrBtn.innerHTML = "Үргэлжлүүлэх";
-            generateQrBtn.disabled = false;
-        }
+        function resetBtn() { generateQrBtn.innerHTML = "Үргэлжлүүлэх"; generateQrBtn.disabled = false; }
     </script>
 </body>
 </html>
