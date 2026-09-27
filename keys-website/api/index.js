@@ -7,10 +7,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// API хаягийг зассан хэсэг
+// API хаяг болон бүтээгдэхүүний үнэ
 const BYL_API_URL = 'https://byl.mn/api/v1'; 
 const PRODUCT_PRICE = 49900;
 
+// Имэйл илгээх тохиргоо (Vercel Environment Variables-аас уншина)
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -19,6 +20,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// 1. Нэхэмжлэх үүсгэх API
 app.post('/api/create-invoice', async (req, res) => {
     const { email } = req.body;
     
@@ -29,11 +31,14 @@ app.post('/api/create-invoice', async (req, res) => {
     const invoiceData = {
         amount: PRODUCT_PRICE,
         description: "Pro Key - Дээд зэрэглэлийн дижитал түлхүүр",
-        metadata: { customer_email: email }
+        metadata: { customer_email: email },
+        // Төлбөр төлөгдсөний дараа автоматаар буцах амжилттай болсон хуудасны хаяг
+        return_url: "https://keys-mn-ten.vercel.app/success.html", 
+        redirect_url: "https://keys-mn-ten.vercel.app/success.html" 
     };
 
     try {
-        // ЗӨВШӨӨРӨГДСӨН ЗӨВ ХАЯГ РУУ ХАНДАХ:
+        // BYL.mn-ийн зөв хаяг руу хандах
         const response = await axios.post(`${BYL_API_URL}/projects/${projectId}/invoices`, invoiceData, {
             headers: { 
                 'Authorization': `Bearer ${process.env.BYL_TOKEN}`,
@@ -54,6 +59,7 @@ app.post('/api/create-invoice', async (req, res) => {
     }
 });
 
+// 2. Төлбөр төлөгдсөн мэдэгдэл хүлээж авах Webhook
 app.post('/api/qpay-callback', async (req, res) => {
     const paymentData = req.body; 
     
@@ -67,18 +73,19 @@ app.post('/api/qpay-callback', async (req, res) => {
                 from: process.env.EMAIL_USER,
                 to: userEmail,
                 subject: 'Таны худалдан авсан эрх - Pro Key',
-                text: `Баярлалаа! Таны төлбөр амжилттай баталгаажлаа.\n\nТаны худалдаж авсан эрх/түлхүүр: ${generatedKey}\n\nPro Key`
+                text: `Баярлалаа! Таны төлбөр амжилттай баталгаажлаа.\n\nТаны худалдаж авсан эрх/түлхүүр: ${generatedKey}\n\nИдэвхжүүлэх заавар:\n1. Систем рүүгээ нэвтэрч орно уу.\n2. Тохиргоо (Settings) хэсэг рүү орно.\n3. "Activate" хэсэгт дээрх түлхүүрийг хуулж тавина.\n\nPro Key`
             };
 
             transporter.sendMail(mailOptions, (error, info) => {
-                if (error) console.log("Имэйл алдаа:", error);
+                if (error) console.log("Имэйл илгээхэд алдаа гарлаа:", error);
                 else console.log("Имэйл амжилттай илгээгдлээ.");
             });
         }
     }
 
-    // Byl-д заавал OK буцаах ёстой
+    // Byl-д мэдээллийг хүлээж авснаа баталгаажуулж заавал OK буцаах ёстой
     res.status(200).send("OK");
 });
 
+// Vercel-д зориулсан export
 module.exports = app;
